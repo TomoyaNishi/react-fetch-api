@@ -5,9 +5,9 @@ function App() {
   const [shops, setShops] = useState([]);
 
   function handleGetShops() {
-    navigator.geolocation.getCurrentPosition(async function (position) {
-      let lat = position.coords.latitude;
-      let long = position.coords.longitude;
+    navigator.geolocation.getCurrentPosition(async function (success) {
+      let lat = success.coords.latitude;
+      let long = success.coords.longitude;
 
       let res = await fetch(
         `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=9c3b52cc8cfb70b0&lat=${lat}&lng=${long}&range=5&format=json`
