@@ -1,5 +1,7 @@
 import "./App.css";
+import fetchJsonp from "fetch-jsonp";
 import { useEffect, useState } from "react";
+import { Shop } from "./component/shop";
 
 function App() {
   const [shops, setShops] = useState([]);
@@ -8,6 +10,23 @@ function App() {
     navigator.geolocation.getCurrentPosition(async function (success) {
       let lat = success.coords.latitude;
       let long = success.coords.longitude;
+      // const url = `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=9c3b52cc8cfb70b0&lat=${lat}&lng=${long}&range=5&format=json`;
+
+      // await fetchJsonp(url, {})
+      //   .then(function (response) {
+      //     console.log(response);
+      //     return response.json();
+      //   })
+      //   .then(function (json) {
+      //     console.log("success", json);
+      //     console.log(json);
+      //     return json;
+      //   })
+      //   .catch(function (err) {
+      //     console.log("error", err);
+      //   });
+
+      // console.log(a);
 
       let res = await fetch(
         `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=9c3b52cc8cfb70b0&lat=${lat}&lng=${long}&range=5&format=json`
@@ -25,37 +44,7 @@ function App() {
       {shops.length !== 0 ? (
         <div className="container">
           {shops.map((shop, index) => {
-            return (
-              <div key={index} className="shop">
-                <div className="shop-inner">
-                  <div className="shop-top">
-                    {/*<img src={shop.photo.pc.l} />*/}
-                    <p className="shop-category">
-                      {shop.genre.name} | {shop.small_area.name}
-                    </p>
-                    <p className="shop-conditions">{shop.genre.catch}</p>
-                    <h3 className="shop-name-ttl3">
-                      <a className="shop-name">{shop.name}</a>
-                    </h3>
-                    <p className="shop-catch">{shop.catch}</p>
-                    <div className="shop-tag-container">
-                      {shop.card === "利用可" ? (
-                        <span className="shop-tag">カードOK</span>
-                      ) : null}
-                      {shop.non_smoking === "禁煙席なし" ? null : (
-                        <span className="shop-tag">全面禁煙</span>
-                      )}
-                    </div>
-                    <p className="shop-info">{shop.budget.name}</p>
-                    <p className="shop-info">{shop.mobile_access}</p>
-                    {/*<div>*/}
-                    {/*  <p>このお店のクーポン</p>*/}
-                    {/*  <p>2時間飲み放題付き全7品2,750円！コスパ良し♪</p>*/}
-                    {/*</div>*/}
-                  </div>
-                </div>
-              </div>
-            );
+            return <Shop key={index} shop={shop} />;
           })}
         </div>
       ) : (
