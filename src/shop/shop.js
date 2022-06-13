@@ -1,6 +1,6 @@
 import { Label } from "../ui/label";
 import { ShopName } from "../ui/shopName";
-import { ShopDescription } from "../ui/ShopDescription";
+import { ShopDescription } from "../ui/shopDescription";
 import { ShopInfo } from "../ui/shopInfo";
 import { ShopHeading } from "../ui/shopHeading";
 
